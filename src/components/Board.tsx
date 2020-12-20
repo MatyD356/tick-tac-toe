@@ -1,7 +1,7 @@
 import '../styles/Board.scss'
 const Board = () => {
   return (
-    <div className='Board'></div>
+    <div className='Board' aria-label='Board'></div>
   )
 }
 

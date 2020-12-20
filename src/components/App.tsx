@@ -5,7 +5,7 @@ import Board from './Board'
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="App" data-testid='App'>
       <Board />
     </div>
   );

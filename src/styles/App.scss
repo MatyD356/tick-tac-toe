@@ -1,4 +1,6 @@
+@use './variables.scss' as v;
+
 .App {
-  text-align: center;
+  background: v.$pink-0;
 }
 

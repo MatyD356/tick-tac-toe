@@ -1,6 +1,11 @@
 @use './variables.scss' as v;
+@import  url('https://meyerweb.com/eric/tools/css/reset/reset.css');
 
 .App {
-  background: v.$pink-0;
+  min-height:         100vh;
+  background: v.$gradient-0;
+  display:             flex;
+  justify-content:   center;
+  align-items:       center;
 }
 

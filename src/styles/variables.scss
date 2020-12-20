@@ -4,16 +4,20 @@ $font: Helvetica Neue,Helvetica,Arial,sans-serif;
 
 //--- COLORS ---///
 
-$white:     #fff;
+$white-0:   #fff;
 $pink-0: #FFE7F8;
 
-$purple:   #BCA2FE;
-$pink-1:   #FF86DD;
+$purple-0:   #BCA2FE;
+$pink-1:     #FF86DD;
 
-$turquoise:  #00FEEF;
-$blue:       #3D76E0;
+$turquoise-0:  #00FEEF;
+$blue-0:       #3D76E0;
 
 //--- BOX-SHADOW ---//
 
-$box-shadow: 10px 10px 50px rgba(0,0,0, .2);
+$box-shadow: 10px 10px 100px 50px rgba(0,0,0, .2);
 
+//--- GRADIENT ---//
+
+$gradient-0: linear-gradient( 90deg, $white-0, $pink-0);
+$gradient-1:       linear-gradient( $purple-0, $pink-1);

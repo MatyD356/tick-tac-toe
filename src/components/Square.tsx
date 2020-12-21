@@ -1,13 +1,15 @@
 import '../styles/Square.scss'
 
 interface SquareProps {
-  onClick: () => void,
-  value: string
+  onClick: (e: any) => void,
+  value: string,
+  id: number
 }
 
-const Square: React.FC<SquareProps> = ({ onClick, value }) => {
+const Square: React.FC<SquareProps> = ({ onClick, value, id }) => {
   return (
     <div
+      id={id.toString()}
       className='Square'
       aria-label='Square'
       onClick={onClick}>{value}</div>

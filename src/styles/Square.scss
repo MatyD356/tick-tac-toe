@@ -9,7 +9,6 @@
  align-items:                 center;
  font-weight:                    100;
  border: 1px solid rgba(0,0,0,0.2);
- transition-duration:          200ms;
  position:                  relative;
  z-index:                          1;
  
@@ -25,7 +24,7 @@
   transform-origin:      center;
   background: rgba(0,0,0,0.2);
   z-index:                   -1;
-  transition:     transform .2s;
+  transition:     transform .4s;
   } 
   &:hover::after {
   transform: scale(1);

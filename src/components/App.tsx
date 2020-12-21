@@ -9,11 +9,13 @@ const App: React.FC = () => {
   const [boardArr, setBoardArr] = useState(Array(9).fill(''))
 
   const handleClick = (e: any) => {
-    setBoardArr((prev) => {
-      prev[e.target.id] = isNext ? 'O' : 'X'
-      return prev
-    })
-    setIsNext(!isNext)
+    if (boardArr[e.target.id] === '') {
+      setBoardArr((prev) => {
+        prev[e.target.id] = isNext ? 'O' : 'X'
+        return prev
+      })
+      setIsNext(!isNext)
+    }
   }
   return (
     <div className="App" data-testid='App'>

@@ -1,12 +1,17 @@
 import '../styles/Board.scss'
 import Square from './Square'
 
-const Board = () => {
+interface BoardProps {
+  boardArr: string[]
+  onClick: () => void
+}
 
-  const handleClick = () => { alert('xd') }
+const Board: React.FC<BoardProps> = ({ boardArr, onClick }) => {
+
   return (
     <div className='Board' aria-label='Board'>
-      <Square onClick={handleClick} />
+      {boardArr.map((item, index) =>
+        <Square onClick={onClick} value={boardArr[index]} />)}
     </div>
   )
 }

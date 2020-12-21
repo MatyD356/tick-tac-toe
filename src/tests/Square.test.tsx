@@ -3,7 +3,9 @@ import { render, screen } from '@testing-library/react'
 import Square from '../components/Square'
 
 test('Renders Square component', () => {
-  render(<Square />)
+  const handleClick = jest.fn()
+  render(<Square onClick={handleClick} />)
   const container = screen.getByLabelText('Square')
   expect(container).toBeInTheDocument()
 })
+test.todo('Calls handleClick on click event')

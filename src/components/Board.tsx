@@ -1,9 +1,12 @@
 import '../styles/Board.scss'
 import Square from './Square'
+
 const Board = () => {
+
+  const handleClick = () => { alert('xd') }
   return (
     <div className='Board' aria-label='Board'>
-      <Square />
+      <Square onClick={handleClick} />
     </div>
   )
 }

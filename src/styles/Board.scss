@@ -4,4 +4,6 @@
   width:               75vh;
   height:              75vh;
   box-shadow: v.$box-shadow;
+  display: grid;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
 }

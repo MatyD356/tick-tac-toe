@@ -2,8 +2,6 @@
 .Board{
   background: v.$gradient-1;
   box-shadow: v.$box-shadow;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+  display:             grid;
+  grid-template: repeat(3 ,minmax(100px, 200px)) / repeat(3,minmax(100px, 200px));
 }

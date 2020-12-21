@@ -2,16 +2,17 @@ import '../styles/Board.scss'
 import Square from './Square'
 
 interface BoardProps {
-  boardArr: string[]
+  boardArr: string[],
+  isNext: boolean,
   onClick: () => void
 }
 
-const Board: React.FC<BoardProps> = ({ boardArr, onClick }) => {
+const Board: React.FC<BoardProps> = ({ boardArr, onClick, isNext }) => {
 
   return (
-    <div className='Board' aria-label='Board'>
+    <div className={`Board ${isNext ? 'pink' : 'turquoise'}`} aria-label='Board'>
       {boardArr.map((item, index) =>
-        <Square onClick={onClick} value={boardArr[index]} />)}
+        <Square key={index} onClick={onClick} value={boardArr[index]} />)}
     </div>
   )
 }

@@ -6,10 +6,12 @@ import Board from './Board'
 const App = () => {
   const [isNext, setIsNext] = useState(false)
   const [boardArr, setBoardArr] = useState(Array(9).fill('x'))
-  const handleClick = () => { }
+  const handleClick = () => {
+    setIsNext(!isNext)
+  }
   return (
     <div className="App" data-testid='App'>
-      <Board boardArr={boardArr} onClick={handleClick} />
+      <Board boardArr={boardArr} onClick={handleClick} isNext={isNext} />
     </div>
   );
 }

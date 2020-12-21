@@ -1,9 +1,9 @@
 @use './variables.scss' as v;
 .Board{
   background: v.$gradient-1;
-  width:               75vh;
-  height:              75vh;
   box-shadow: v.$box-shadow;
   display: grid;
+  justify-content: center;
+  align-items: center;
   grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
 }

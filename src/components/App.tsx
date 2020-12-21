@@ -5,7 +5,7 @@ import Board from './Board'
 
 const App = () => {
   const [isNext, setIsNext] = useState(false)
-  const [boardArr, setBoardArr] = useState(Array(9).fill(''))
+  const [boardArr, setBoardArr] = useState(Array(9).fill('x'))
   const handleClick = () => { }
   return (
     <div className="App" data-testid='App'>

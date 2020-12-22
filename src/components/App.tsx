@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../styles/App.scss'
 import './Board'
 import Board from './Board'
@@ -9,12 +9,23 @@ const App: React.FC = () => {
   const [boardArr, setBoardArr] = useState(Array(9).fill(''))
   const [gameState, setGameState] = useState('ongoing')
 
-  const checKforWinner = () => {
-    //check for draw
-    const squaresLeft = boardArr.filter(item => item === '').length - 1
-    console.log(squaresLeft);
+  useEffect(() => {
+    checkForWin()
+    checkForDraw()
+  })
+
+  const checkForDraw = (): void => {
+    const squaresLeft = boardArr.filter(item => item === '').length
     if (squaresLeft === 0) {
-      setGameState('draw')
+      setGameState('Draw')
+    }
+  }
+
+  const checkForWin = (): void => {
+    const firstRow = boardArr.slice(0, 3).filter(i => i === 'X')
+    console.log(boardArr.slice(0, 3), firstRow);
+    if (firstRow.length === 3) {
+      setGameState('X wins')
     }
   }
 
@@ -26,7 +37,6 @@ const App: React.FC = () => {
       })
       setIsNext(!isNext)
     }
-    checKforWinner()
   }
   return (
     <div className="App" data-testid='App'>

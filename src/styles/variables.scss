@@ -14,10 +14,17 @@ $blue-0:       #3D76E0;
 
 //--- BOX-SHADOW ---//
 
-$box-shadow: 10px 10px 100px 50px rgba(0,0,0, .2);
+$box-shadow-0: 10px 10px 100px 50px rgba(0,0,0, .2);
+$box-shadow-1:         0 0 10px 5px rgba(0,0,0,0.2);
 
 //--- GRADIENT ---//
 
 $gradient-0: linear-gradient( 90deg, $white-0, $pink-0);
 $gradient-1:       linear-gradient( $purple-0, $pink-1);
 $gradient-2:    linear-gradient( $blue-0, $turquoise-0);
+
+$text-gradient-0: -webkit-linear-gradient( 90deg, $white-0, $pink-0);
+$text-gradient-1:    -webkit-linear-gradient( $blue-0, $turquoise-0);
+$text-gradient-2:       -webkit-linear-gradient( $purple-0, $pink-1);
+
+

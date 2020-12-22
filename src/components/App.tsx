@@ -13,7 +13,11 @@ const App: React.FC = () => {
     checkForWin()
     checkForDraw()
   })
-
+  const reset = (): void => {
+    setIsNext(false)
+    setBoardArr(Array(9).fill(''))
+    setGameState('ongoing')
+  }
   const checkForDraw = (): void => {
     const squaresLeft = boardArr.filter(item => item === '').length
     if (squaresLeft === 0) {
@@ -40,7 +44,7 @@ const App: React.FC = () => {
   }
   return (
     <div className="App" data-testid='App'>
-      <Alert gameState={gameState} />
+      <Alert isNext={isNext} gameState={gameState} restart={reset} />
       <Board boardArr={boardArr} onClick={handleClick} isNext={isNext} />
     </div>
   );

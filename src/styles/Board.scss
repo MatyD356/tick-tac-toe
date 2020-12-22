@@ -1,6 +1,6 @@
 @use './variables.scss' as v;
 .Board{
-  box-shadow: v.$box-shadow;
+  box-shadow: v.$box-shadow-0;
   display:             grid;
   grid-template: repeat(3 ,minmax(100px, 200px)) / repeat(3,minmax(100px, 200px));
 

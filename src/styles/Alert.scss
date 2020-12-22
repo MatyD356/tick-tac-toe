@@ -1,8 +1,34 @@
 @use './variables.scss' as v;
 
 .Alert{
-  text-shadow: v.$box-shadow;
-  min-height: 2rem;
-  font-size: 2rem;
-  background: transparent;
+  display:                flex;
+  font-size:              2rem;
+  min-height:             2rem;
+  background:      transparent;
+  align-items:          center;
+  text-shadow: v.$box-shadow-0;
+  flex-direction:       column;
+  justify-content:      center;
+  p{
+    min-height: 2rem;
+  }
+  .pink{
+    background:            v.$gradient-1;
+  }
+  .turquoise{
+    background: v.$gradient-2;
+    }
+  .reset{
+    cursor:                      pointer;
+    border:                         none;
+    color:                     v.$blue-0;
+    padding:                1rem 1.25rem;
+    font-size:                    1.5rem;
+    font-weight:                     600;
+    box-shadow:          v.$box-shadow-1;
+    background-clip:                text;
+    -webkit-background-clip:        text;
+    -webkit-text-fill-color: transparent; 
+  }
+
 }

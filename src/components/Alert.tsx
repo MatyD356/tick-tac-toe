@@ -1,13 +1,16 @@
 import '../styles/Alert.scss'
 
 interface AlertProps {
+  isNext: boolean
   gameState: string
+  restart: () => void
 }
 
-const Alert: React.FC<AlertProps> = ({ gameState }) => {
+const Alert: React.FC<AlertProps> = ({ isNext, gameState, restart }) => {
   return (
     <div className='Alert'>
-      {gameState !== 'ongoing' ? gameState : null}
+      <p>{gameState !== 'ongoing' ? gameState : null}</p>
+      <button className={`reset ${!isNext ? 'turquoise' : 'pink'}`} onClick={restart}>Reset</button>
     </div>
   )
 }

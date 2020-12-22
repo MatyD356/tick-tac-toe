@@ -2,9 +2,9 @@ import '../styles/Board.scss'
 import Square from './Square'
 
 interface BoardProps {
-  boardArr: string[],
-  isNext: boolean,
-  onClick: (e: any) => void
+  boardArr: string[]
+  isNext: boolean
+  onClick: React.MouseEventHandler<HTMLElement>
 }
 
 const Board: React.FC<BoardProps> = ({ boardArr, onClick, isNext }) => {

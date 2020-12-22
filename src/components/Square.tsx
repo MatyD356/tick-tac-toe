@@ -1,8 +1,8 @@
 import '../styles/Square.scss'
 
 interface SquareProps {
-  onClick: (e: any) => void,
-  value: string,
+  onClick: React.MouseEventHandler<HTMLElement>
+  value: string
   id: number
 }
 

@@ -4,7 +4,7 @@ import Square from '../components/Square'
 
 test('Renders Square component', () => {
   const handleClick = jest.fn()
-  render(<Square onClick={handleClick} />)
+  render(<Square onClick={handleClick} value='' id={1} />)
   const container = screen.getByLabelText('Square')
   expect(container).toBeInTheDocument()
 })

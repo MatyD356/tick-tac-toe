@@ -9,22 +9,28 @@
   text-shadow: v.$box-shadow-0;
   flex-direction:       column;
   justify-content:      center;
-  p{
-    min-height: 2rem;
-  }
+
   .pink{
-    background:            v.$gradient-1;
+    background: v.$gradient-1;
   }
   .turquoise{
     background: v.$gradient-2;
-    }
+  }
+  .info{
+    margin-top:                     4rem;
+    min-height:                     2rem;
+    font-weight:                     900;
+    background-clip:                text;
+    -webkit-background-clip:        text;
+    -webkit-text-fill-color: transparent;
+  }
   .reset{
     cursor:                      pointer;
     border:                         none;
     color:                     v.$blue-0;
     padding:                1rem 1.25rem;
     font-size:                    1.5rem;
-    font-weight:                     600;
+    font-weight:                     400;
     box-shadow:          v.$box-shadow-1;
     background-clip:                text;
     -webkit-background-clip:        text;

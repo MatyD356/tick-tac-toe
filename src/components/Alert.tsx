@@ -9,8 +9,12 @@ interface AlertProps {
 const Alert: React.FC<AlertProps> = ({ isNext, gameState, restart }) => {
   return (
     <div className='Alert'>
-      <p>{gameState !== 'ongoing' ? gameState : null}</p>
-      <button className={`reset ${!isNext ? 'turquoise' : 'pink'}`} onClick={restart}>Reset</button>
+      <button className={`reset ${!isNext ? 'turquoise' : 'pink'}`} onClick={restart}>
+        Reset
+      </button>
+      <p className={`info ${!isNext ? 'turquoise' : 'pink'}`}>
+        {gameState !== 'ongoing' ? gameState : null}
+      </p>
     </div>
   )
 }

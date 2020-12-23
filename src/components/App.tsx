@@ -25,11 +25,28 @@ const App: React.FC = () => {
     }
   }
 
+  //TO DO IMPROVE
   const checkForWin = (): void => {
-    const firstRow = boardArr.slice(0, 3).filter(i => i === 'X')
-    console.log(boardArr.slice(0, 3), firstRow);
-    if (firstRow.length === 3) {
-      setGameState('X wins')
+
+    const sign = isNext ? 'X' : 'O'
+
+    const firstRow = boardArr.slice(0, 3).filter(i => i === sign).length
+    const secondRow = boardArr.slice(3, 6).filter(i => i === sign).length
+    const thirdRow = boardArr.slice(6, 9).filter(i => i === sign).length
+
+    const firstColumn = [boardArr[0], boardArr[3], boardArr[6]].filter(i => i === sign).length
+    const secondColumn = [boardArr[1], boardArr[4], boardArr[7]].filter(i => i === sign).length
+    const thirdColumn = [boardArr[2], boardArr[5], boardArr[8]].filter(i => i === sign).length
+
+    const firstDiagonal = [boardArr[0], boardArr[4], boardArr[8]].filter(i => i === sign).length
+    const secondDiagonal = [boardArr[2], boardArr[4], boardArr[6]].filter(i => i === sign).length
+
+    if (firstRow === 3 || secondRow === 3 || thirdRow === 3) {
+      setGameState(`${sign} wins`)
+    } else if (firstColumn === 3 || secondColumn === 3 || thirdColumn === 3) {
+      setGameState(`${sign} wins`)
+    } else if (firstDiagonal === 3 || secondDiagonal === 3) {
+      setGameState(`${sign} wins`)
     }
   }
 

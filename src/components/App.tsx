@@ -12,13 +12,16 @@ const App: React.FC = () => {
   useEffect(() => {
     checkForWin()
     checkForDraw()
+    console.log(isNext);
+
   })
   const reset = (): void => {
-    setIsNext(false)
     setBoardArr(Array(9).fill(''))
     setGameState('ongoing')
+    setIsNext(false)
   }
   const checkForDraw = (): void => {
+    //bug when last move wins the game
     const squaresLeft = boardArr.filter(item => item === '').length
     if (squaresLeft === 0) {
       setGameState('Draw')
@@ -50,13 +53,21 @@ const App: React.FC = () => {
     }
   }
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (boardArr[(e.target as any).id] === '') {
+  const updateBoard = (id: any) => {
+    if (boardArr[id] === '') {
       setBoardArr((prev) => {
-        prev[(e.target as any).id] = isNext ? 'O' : 'X'
+        prev[id] = isNext ? 'O' : 'X'
         return prev
       })
       setIsNext(!isNext)
+    }
+  }
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (gameState === 'ongoing') {
+      updateBoard((e.target as any).id)
+    }
+    else if (gameState === 'draw' || gameState === 'X wins' || gameState === 'O wins') {
+      reset()
     }
   }
   return (

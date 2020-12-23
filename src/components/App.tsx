@@ -7,7 +7,7 @@ import Alert from './Alert'
 const App: React.FC = () => {
   const [isNext, setIsNext] = useState(false)
   const [boardArr, setBoardArr] = useState(Array(9).fill(''))
-  const [gameState, setGameState] = useState('ongoing')
+  const [gameState, setGameState] = useState('onGoing')
 
   useEffect(() => {
     checkForWin()
@@ -17,14 +17,15 @@ const App: React.FC = () => {
   })
   const reset = (): void => {
     setBoardArr(Array(9).fill(''))
-    setGameState('ongoing')
+    setGameState('onGoing')
     setIsNext(false)
   }
   const checkForDraw = (): void => {
-    //bug when last move wins the game
-    const squaresLeft = boardArr.filter(item => item === '').length
-    if (squaresLeft === 0) {
-      setGameState('Draw')
+    if (gameState === 'onGoing') {
+      const squaresLeft = boardArr.filter(item => item === '').length
+      if (squaresLeft === 0) {
+        setGameState('Draw')
+      }
     }
   }
 
@@ -63,10 +64,10 @@ const App: React.FC = () => {
     }
   }
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (gameState === 'ongoing') {
+    if (gameState === 'onGoing') {
       updateBoard((e.target as any).id)
     }
-    else if (gameState === 'draw' || gameState === 'X wins' || gameState === 'O wins') {
+    else if (gameState === 'Draw' || gameState === 'X wins' || gameState === 'O wins') {
       reset()
     }
   }

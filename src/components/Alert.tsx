@@ -13,7 +13,7 @@ const Alert: React.FC<AlertProps> = ({ isNext, gameState, restart }) => {
         Reset
       </button>
       <p className={`info ${!isNext ? 'turquoise' : 'pink'}`}>
-        {gameState !== 'ongoing' ? gameState : null}
+        {gameState !== 'onGoing' ? gameState : null}
       </p>
     </div>
   )

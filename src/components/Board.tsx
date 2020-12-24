@@ -5,6 +5,7 @@ interface BoardProps {
   boardArr: string[]
   isNext: boolean
   onClick: React.MouseEventHandler<HTMLElement>
+  aiOn: boolean
 }
 
 const Board: React.FC<BoardProps> = ({ boardArr, onClick, isNext }) => {

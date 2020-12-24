@@ -5,6 +5,7 @@ interface AlertProps {
   gameState: string
   restart: () => void
   setAiOn: () => void
+  aiOn: boolean
 }
 
 const Alert: React.FC<AlertProps> = ({ isNext, gameState, restart, setAiOn }) => {

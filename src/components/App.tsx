@@ -11,14 +11,66 @@ const App: React.FC = () => {
   const [aiOn, setAiOn] = useState(false)
 
   useEffect(() => {
-    checkForDraw()
-    checkForWin()
-  })
-  useEffect(() => {
-    if (aiOn && isNext) {
+    const checkForDraw = (): boolean => {
+      if (gameState === 'onGoing') {
+        const squaresLeft = boardArr.filter(item => item === '').length
+        if (squaresLeft === 0) {
+          return true
+        } else {
+          return false
+        }
+      }
+      return false
+    }
+    const checkForWin = (): boolean => {
+
+      const sign = isNext ? 'X' : 'O'
+
+      const firstRow = boardArr.slice(0, 3).filter(i => i === sign).length
+      const secondRow = boardArr.slice(3, 6).filter(i => i === sign).length
+      const thirdRow = boardArr.slice(6, 9).filter(i => i === sign).length
+
+      const firstColumn = [boardArr[0], boardArr[3], boardArr[6]].filter(i => i === sign).length
+      const secondColumn = [boardArr[1], boardArr[4], boardArr[7]].filter(i => i === sign).length
+      const thirdColumn = [boardArr[2], boardArr[5], boardArr[8]].filter(i => i === sign).length
+
+      const firstDiagonal = [boardArr[0], boardArr[4], boardArr[8]].filter(i => i === sign).length
+      const secondDiagonal = [boardArr[2], boardArr[4], boardArr[6]].filter(i => i === sign).length
+
+      if (firstRow === 3 || secondRow === 3 || thirdRow === 3) {
+        return true
+      } else if (firstColumn === 3 || secondColumn === 3 || thirdColumn === 3) {
+        return true
+      } else if (firstDiagonal === 3 || secondDiagonal === 3) {
+        return true
+      }
+      return false
+    }
+    const randomAi = () => {
+      const squaresLeft = boardArr.filter(item => item === '').length
+      let num = 4
+      while (squaresLeft > 0 && boardArr[num] !== '') {
+        num = randomizeNumber(0, 8)
+      }
+      setIsNext(!isNext)
+      setBoardArr((prev) => {
+        prev[num] = isNext ? 'O' : 'X'
+        return prev
+      })
+    }
+    const randomizeNumber = (min: number, max: number): number => {
+      const num = Math.floor(Math.random() * (max - min)) + min
+      return num
+    }
+    if (checkForWin()) {
+      setGameState(`${isNext ? 'X' : 'O'} wins`)
+    }
+    else if (checkForDraw()) {
+      setGameState('draw')
+    } else if (aiOn && isNext && gameState === 'onGoing') {
       randomAi()
     }
-  }, [isNext])
+  }, [gameState, boardArr, isNext, aiOn])
 
   const reset = (): void => {
     setBoardArr(Array(9).fill(''))
@@ -26,60 +78,8 @@ const App: React.FC = () => {
     setIsNext(false)
   }
 
-  const checkForDraw = (): void => {
-    if (gameState === 'onGoing') {
-      const squaresLeft = boardArr.filter(item => item === '').length
-      if (squaresLeft === 0) {
-        setGameState('Draw')
-      }
-    }
-  }
-
   const turnAi = () => {
     setAiOn(!aiOn)
-  }
-
-  const randomAi = () => {
-    //one move to much bug
-    const squaresLeft = boardArr.filter(item => item === '').length
-    let num = 4
-    while (squaresLeft > 0 && boardArr[num] !== '') {
-      num = randomizeNumber(0, 8)
-    }
-    setIsNext(!isNext)
-    setBoardArr((prev) => {
-      prev[num] = isNext ? 'O' : 'X'
-      return prev
-    })
-  }
-
-  const randomizeNumber = (min: number, max: number): number => {
-    const num = Math.floor(Math.random() * (max - min)) + min
-    return num
-  }
-
-  const checkForWin = (): void => {
-
-    const sign = isNext ? 'X' : 'O'
-
-    const firstRow = boardArr.slice(0, 3).filter(i => i === sign).length
-    const secondRow = boardArr.slice(3, 6).filter(i => i === sign).length
-    const thirdRow = boardArr.slice(6, 9).filter(i => i === sign).length
-
-    const firstColumn = [boardArr[0], boardArr[3], boardArr[6]].filter(i => i === sign).length
-    const secondColumn = [boardArr[1], boardArr[4], boardArr[7]].filter(i => i === sign).length
-    const thirdColumn = [boardArr[2], boardArr[5], boardArr[8]].filter(i => i === sign).length
-
-    const firstDiagonal = [boardArr[0], boardArr[4], boardArr[8]].filter(i => i === sign).length
-    const secondDiagonal = [boardArr[2], boardArr[4], boardArr[6]].filter(i => i === sign).length
-
-    if (firstRow === 3 || secondRow === 3 || thirdRow === 3) {
-      setGameState(`${sign} wins`)
-    } else if (firstColumn === 3 || secondColumn === 3 || thirdColumn === 3) {
-      setGameState(`${sign} wins`)
-    } else if (firstDiagonal === 3 || secondDiagonal === 3) {
-      setGameState(`${sign} wins`)
-    }
   }
 
   const updateBoard = (id: any) => {
@@ -105,8 +105,8 @@ const App: React.FC = () => {
 
   return (
     <div className="App" data-testid='App'>
-      <Alert isNext={isNext} gameState={gameState} restart={reset} setAiOn={turnAi} />
-      <Board boardArr={boardArr} onClick={handleClick} isNext={isNext} />
+      <Alert aiOn={aiOn} isNext={isNext} gameState={gameState} restart={reset} setAiOn={turnAi} />
+      <Board aiOn={aiOn} boardArr={boardArr} onClick={handleClick} isNext={isNext} />
     </div>
   );
 }

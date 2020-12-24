@@ -8,10 +8,10 @@ interface BoardProps {
   aiOn: boolean
 }
 
-const Board: React.FC<BoardProps> = ({ boardArr, onClick, isNext }) => {
+const Board: React.FC<BoardProps> = ({ boardArr, onClick, isNext, aiOn }) => {
 
   return (
-    <div className={`Board ${isNext ? 'pink' : 'turquoise'}`} aria-label='Board'>
+    <div className={`Board ${aiOn ? 'turquoise' : isNext ? 'pink' : 'turquoise'}`} aria-label='Board'>
       {boardArr.map((item, index) =>
         <Square key={index} onClick={onClick} value={boardArr[index]} id={index} />)}
     </div>

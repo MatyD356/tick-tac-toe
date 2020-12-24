@@ -8,16 +8,16 @@ interface AlertProps {
   aiOn: boolean
 }
 
-const Alert: React.FC<AlertProps> = ({ isNext, gameState, restart, setAiOn }) => {
+const Alert: React.FC<AlertProps> = ({ isNext, gameState, restart, setAiOn, aiOn }) => {
   return (
     <div className='Alert'>
-      <button className={`reset ${!isNext ? 'turquoise' : 'pink'}`} onClick={restart}>
+      <button className={`reset ${aiOn ? 'turquoise' : !isNext ? 'turquoise' : 'pink'}`} onClick={restart}>
         Reset
       </button>
-      <button className={`reset ${!isNext ? 'turquoise' : 'pink'}`} onClick={setAiOn}>
+      <button className={`reset ${aiOn ? 'turquoise' : !isNext ? 'turquoise' : 'pink'}`} onClick={setAiOn}>
         Ai
       </button>
-      <p className={`info ${!isNext ? 'turquoise' : 'pink'}`}>
+      <p className={`info ${aiOn ? 'turquoise' : !isNext ? 'turquoise' : 'pink'}`}>
         {gameState !== 'onGoing' ? gameState : null}
       </p>
     </div>

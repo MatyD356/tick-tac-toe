@@ -4,13 +4,17 @@ interface AlertProps {
   isNext: boolean
   gameState: string
   restart: () => void
+  setAiOn: () => void
 }
 
-const Alert: React.FC<AlertProps> = ({ isNext, gameState, restart }) => {
+const Alert: React.FC<AlertProps> = ({ isNext, gameState, restart, setAiOn }) => {
   return (
     <div className='Alert'>
       <button className={`reset ${!isNext ? 'turquoise' : 'pink'}`} onClick={restart}>
         Reset
+      </button>
+      <button className={`reset ${!isNext ? 'turquoise' : 'pink'}`} onClick={setAiOn}>
+        Ai
       </button>
       <p className={`info ${!isNext ? 'turquoise' : 'pink'}`}>
         {gameState !== 'onGoing' ? gameState : null}

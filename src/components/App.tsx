@@ -8,18 +8,24 @@ const App: React.FC = () => {
   const [isNext, setIsNext] = useState(false)
   const [boardArr, setBoardArr] = useState(Array(9).fill(''))
   const [gameState, setGameState] = useState('onGoing')
+  const [aiOn, setAiOn] = useState(false)
 
   useEffect(() => {
-    checkForWin()
     checkForDraw()
-    console.log(isNext);
-
+    checkForWin()
   })
+  useEffect(() => {
+    if (aiOn && isNext) {
+      randomAi()
+    }
+  }, [isNext])
+
   const reset = (): void => {
     setBoardArr(Array(9).fill(''))
     setGameState('onGoing')
     setIsNext(false)
   }
+
   const checkForDraw = (): void => {
     if (gameState === 'onGoing') {
       const squaresLeft = boardArr.filter(item => item === '').length
@@ -29,7 +35,29 @@ const App: React.FC = () => {
     }
   }
 
-  //TO DO IMPROVE
+  const turnAi = () => {
+    setAiOn(!aiOn)
+  }
+
+  const randomAi = () => {
+    //one move to much bug
+    const squaresLeft = boardArr.filter(item => item === '').length
+    let num = 4
+    while (squaresLeft > 0 && boardArr[num] !== '') {
+      num = randomizeNumber(0, 8)
+    }
+    setIsNext(!isNext)
+    setBoardArr((prev) => {
+      prev[num] = isNext ? 'O' : 'X'
+      return prev
+    })
+  }
+
+  const randomizeNumber = (min: number, max: number): number => {
+    const num = Math.floor(Math.random() * (max - min)) + min
+    return num
+  }
+
   const checkForWin = (): void => {
 
     const sign = isNext ? 'X' : 'O'
@@ -55,14 +83,17 @@ const App: React.FC = () => {
   }
 
   const updateBoard = (id: any) => {
-    if (boardArr[id] === '') {
-      setBoardArr((prev) => {
-        prev[id] = isNext ? 'O' : 'X'
-        return prev
-      })
-      setIsNext(!isNext)
+    if (gameState === 'onGoing') {
+      if (boardArr[id] === '') {
+        setBoardArr((prev) => {
+          prev[id] = isNext ? 'O' : 'X'
+          return prev
+        })
+        setIsNext(!isNext)
+      }
     }
   }
+
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (gameState === 'onGoing') {
       updateBoard((e.target as any).id)
@@ -71,9 +102,10 @@ const App: React.FC = () => {
       reset()
     }
   }
+
   return (
     <div className="App" data-testid='App'>
-      <Alert isNext={isNext} gameState={gameState} restart={reset} />
+      <Alert isNext={isNext} gameState={gameState} restart={reset} setAiOn={turnAi} />
       <Board boardArr={boardArr} onClick={handleClick} isNext={isNext} />
     </div>
   );

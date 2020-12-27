@@ -11,18 +11,18 @@ const App: React.FC = () => {
   const [aiOn, setAiOn] = useState(false)
 
   useEffect(() => {
-    const checkForDraw = (): boolean => {
+    const checkForDraw = (board: string[]): boolean | string => {
       if (gameState === 'onGoing') {
-        const squaresLeft = boardArr.filter(item => item === '').length
+        const squaresLeft = board.filter(item => item === '').length
         if (squaresLeft === 0) {
-          return true
+          return 'tie'
         } else {
           return false
         }
       }
       return false
     }
-    const checkForWin = (): boolean => {
+    const checkForWin = (board: string[]): boolean => {
 
       const sign = isNext ? 'X' : 'O'
 
@@ -58,17 +58,71 @@ const App: React.FC = () => {
         return prev
       })
     }
+
+    const minimax = (board: string[], depth: number, isMax: boolean): any => {
+      console.log('here');
+      return 1
+      /*      if (checkForWin() || checkForDraw() === 'tie') {
+             return checkForDraw() === 'tie ' ? 0 : checkForWin() && !isNext ? -1 : 1
+           }
+           if (isMax) {
+             let bestScore = -Infinity
+             for (let i = 0; i < 9; i++) {
+               if (boardArr[i] === '') {
+                 board[i] = 'O'
+                 let score = minimax(board, depth + 1, false)
+                 if (score > bestScore) {
+                   bestScore = score
+                 }
+               }
+             }
+             return bestScore
+           } else {
+             let bestScore = Infinity
+             for (let i = 0; i < 9; i++) {
+               if (boardArr[i] === '') {
+                 board[i] = 'X'
+                 let score = minimax(board, depth + 1, true)
+                 if (score > bestScore) {
+                   bestScore = score
+                 }
+               }
+             }
+             return bestScore
+           } */
+    }
+    const bestMove = () => {
+      let bestScore = -Infinity
+      let bestSpot: any
+      let board = boardArr.slice(0, boardArr.length)
+      for (let i = 0; i < 9; i++) {
+        if (boardArr[i] === '') {
+          board[i] = isNext ? 'X' : 'O'
+          let score = minimax(board, 0, false)
+          if (score > bestScore) {
+            bestScore = score
+            bestSpot = i
+          }
+        }
+      }
+      setIsNext(!isNext)
+      setBoardArr((prev) => {
+        prev[bestSpot] = isNext ? 'O' : 'X'
+        return prev
+      })
+
+    }
     const randomizeNumber = (min: number, max: number): number => {
       const num = Math.floor(Math.random() * (max - min)) + min
       return num
     }
-    if (checkForWin()) {
+    if (checkForWin(boardArr)) {
       setGameState(`${isNext ? 'X' : 'O'} wins`)
     }
-    else if (checkForDraw()) {
-      setGameState('draw')
+    else if (checkForDraw(boardArr) === 'tie') {
+      setGameState('Draw')
     } else if (aiOn && isNext && gameState === 'onGoing') {
-      randomAi()
+      bestMove()
     }
   }, [gameState, boardArr, isNext, aiOn])
 

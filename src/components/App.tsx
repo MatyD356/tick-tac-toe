@@ -5,10 +5,10 @@ import Board from './Board'
 import Alert from './Alert'
 
 const App: React.FC = () => {
-  const [isNext, setIsNext] = useState(false)
+  const [isNext, setIsNext] = useState(true)
   const [boardArr, setBoardArr] = useState(Array(9).fill(''))
   const [gameState, setGameState] = useState('onGoing')
-  const [aiOn, setAiOn] = useState(false)
+  const [aiOn, setAiOn] = useState(true)
 
   useEffect(() => {
     const checkForDraw = (board: string[]): boolean | string => {
@@ -71,7 +71,9 @@ const App: React.FC = () => {
       for (let i = 0; i < 9; i++) {
         if (boardArr[i] === '') {
           board[i] = 'O'
+
           let score = minimax(board, 0, false)
+          console.log(score);
           if (score > bestScore) {
             bestScore = score
             bestSpot = i
@@ -80,7 +82,7 @@ const App: React.FC = () => {
       }
       setIsNext(!isNext)
       setBoardArr((prev) => {
-        prev[bestSpot] = isNext ? 'O' : 'X'
+        prev[bestSpot] = isNext ? 'X' : 'O'
         return prev
       })
 
@@ -90,7 +92,7 @@ const App: React.FC = () => {
       return num
     }
     if (checkForWin(boardArr)) {
-      setGameState(`${isNext ? 'X' : 'O'} wins`)
+      setGameState(`${isNext ? 'O' : 'X'} wins`)
     }
     else if (checkForDraw(boardArr) === 'tie') {
       setGameState('Draw')
@@ -113,7 +115,7 @@ const App: React.FC = () => {
     if (gameState === 'onGoing') {
       if (boardArr[id] === '') {
         setBoardArr((prev) => {
-          prev[id] = isNext ? 'O' : 'X'
+          prev[id] = isNext ? 'X' : 'O'
           return prev
         })
         setIsNext(!isNext)

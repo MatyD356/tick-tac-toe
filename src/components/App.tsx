@@ -48,18 +48,6 @@ const App: React.FC = () => {
       }
       return ''
     }
-    const randomAi = () => {
-      const squaresLeft = boardArr.filter(item => item === '').length
-      let num = 4
-      while (squaresLeft > 0 && boardArr[num] !== '') {
-        num = randomizeNumber(0, 8)
-      }
-      setIsNext(!isNext)
-      setBoardArr((prev) => {
-        prev[num] = isNext ? 'O' : 'X'
-        return prev
-      })
-    }
     const minimax = (board: string[], depth: number, isMaximizing: boolean): any => {
       if (checkForWin(board) === 'X wins') {
         return 10
@@ -118,10 +106,6 @@ const App: React.FC = () => {
         return prev
       })
       setIsNext(!isNext)
-    }
-    const randomizeNumber = (min: number, max: number): number => {
-      const num = Math.floor(Math.random() * (max - min)) + min
-      return num
     }
     if (checkForWin(boardArr)) {
       setGameState(`${isNext ? 'O' : 'X'} wins`)

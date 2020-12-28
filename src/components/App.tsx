@@ -22,29 +22,31 @@ const App: React.FC = () => {
       }
       return false
     }
-    const checkForWin = (board: string[]): boolean => {
+    const checkForWin = (board: string[]): string => {
 
-      const sign = isNext ? 'X' : 'O'
+      const signs = ['X', 'O']
 
-      const firstRow = boardArr.slice(0, 3).filter(i => i === sign).length
-      const secondRow = boardArr.slice(3, 6).filter(i => i === sign).length
-      const thirdRow = boardArr.slice(6, 9).filter(i => i === sign).length
+      for (let i = 0; i < signs.length; i++) {
+        const firstRow = board.slice(0, 3).filter(item => item === signs[i]).length
+        const secondRow = board.slice(3, 6).filter(item => item === signs[i]).length
+        const thirdRow = board.slice(6, 9).filter(item => item === signs[i]).length
 
-      const firstColumn = [boardArr[0], boardArr[3], boardArr[6]].filter(i => i === sign).length
-      const secondColumn = [boardArr[1], boardArr[4], boardArr[7]].filter(i => i === sign).length
-      const thirdColumn = [boardArr[2], boardArr[5], boardArr[8]].filter(i => i === sign).length
+        const firstColumn = [board[0], board[3], board[6]].filter(item => item === signs[i]).length
+        const secondColumn = [board[1], board[4], board[7]].filter(item => item === signs[i]).length
+        const thirdColumn = [board[2], board[5], board[8]].filter(item => item === signs[i]).length
 
-      const firstDiagonal = [boardArr[0], boardArr[4], boardArr[8]].filter(i => i === sign).length
-      const secondDiagonal = [boardArr[2], boardArr[4], boardArr[6]].filter(i => i === sign).length
+        const firstDiagonal = [board[0], board[4], board[8]].filter(item => item === signs[i]).length
+        const secondDiagonal = [board[2], board[4], board[6]].filter(item => item === signs[i]).length
 
-      if (firstRow === 3 || secondRow === 3 || thirdRow === 3) {
-        return true
-      } else if (firstColumn === 3 || secondColumn === 3 || thirdColumn === 3) {
-        return true
-      } else if (firstDiagonal === 3 || secondDiagonal === 3) {
-        return true
+        if (firstRow === 3 || secondRow === 3 || thirdRow === 3) {
+          return `${signs[i]} wins`
+        } else if (firstColumn === 3 || secondColumn === 3 || thirdColumn === 3) {
+          return `${signs[i]} wins`
+        } else if (firstDiagonal === 3 || secondDiagonal === 3) {
+          return `${signs[i]} wins`
+        }
       }
-      return false
+      return ''
     }
     const randomAi = () => {
       const squaresLeft = boardArr.filter(item => item === '').length
@@ -60,36 +62,7 @@ const App: React.FC = () => {
     }
 
     const minimax = (board: string[], depth: number, isMax: boolean): any => {
-      console.log('here');
       return 1
-      /*      if (checkForWin() || checkForDraw() === 'tie') {
-             return checkForDraw() === 'tie ' ? 0 : checkForWin() && !isNext ? -1 : 1
-           }
-           if (isMax) {
-             let bestScore = -Infinity
-             for (let i = 0; i < 9; i++) {
-               if (boardArr[i] === '') {
-                 board[i] = 'O'
-                 let score = minimax(board, depth + 1, false)
-                 if (score > bestScore) {
-                   bestScore = score
-                 }
-               }
-             }
-             return bestScore
-           } else {
-             let bestScore = Infinity
-             for (let i = 0; i < 9; i++) {
-               if (boardArr[i] === '') {
-                 board[i] = 'X'
-                 let score = minimax(board, depth + 1, true)
-                 if (score > bestScore) {
-                   bestScore = score
-                 }
-               }
-             }
-             return bestScore
-           } */
     }
     const bestMove = () => {
       let bestScore = -Infinity
@@ -97,7 +70,7 @@ const App: React.FC = () => {
       let board = boardArr.slice(0, boardArr.length)
       for (let i = 0; i < 9; i++) {
         if (boardArr[i] === '') {
-          board[i] = isNext ? 'X' : 'O'
+          board[i] = 'O'
           let score = minimax(board, 0, false)
           if (score > bestScore) {
             bestScore = score

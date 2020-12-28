@@ -16,3 +16,4 @@ const Square: React.FC<SquareProps> = ({ onClick, value, id }) => {
   )
 }
 export default Square
+

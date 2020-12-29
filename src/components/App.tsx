@@ -51,12 +51,19 @@ const App: React.FC = () => {
       }
       return null
     }
+
+    let scores: any = {
+      X: 10,
+      O: -10,
+      Tie: 0
+    };
     const minimax = (board: string[], depth: number, isMaximizing: boolean): any => {
-      if (checkForWin(board) === 'X wins') {
-        return 10
-      } else if (checkForWin(board) === 'O wins') {
-        return -10
+
+      let result: any = checkForWin(board);
+      if (result !== null) {
+        return scores[result];
       }
+
       if (isMaximizing) {
         let bestScore = -Infinity;
         for (let i = 0; i < 9; i++) {
@@ -74,7 +81,6 @@ const App: React.FC = () => {
       } else {
         let bestScore = Infinity;
         for (let i = 0; i < 9; i++) {
-          // Is the spot available?
           if (board[i] === '') {
             board[i] = 'O';
             let score = minimax(board, depth + 1, true);
@@ -87,13 +93,12 @@ const App: React.FC = () => {
         return bestScore;
       }
     }
-
     const bestMove = () => {
       let bestScore = -Infinity;
       let move: any;
       let board = boardArr.slice(0, boardArr.length)
       for (let i = 0; i < 9; i++) {
-        if (boardArr[i] === '') {
+        if (board[i] === '') {
           board[i] = 'X'
           let score = minimax(board, 0, false)
           if (score > bestScore) {

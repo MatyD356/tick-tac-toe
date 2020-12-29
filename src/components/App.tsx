@@ -11,21 +11,11 @@ const App: React.FC = () => {
   const [aiOn, setAiOn] = useState(true)
 
   useEffect(() => {
-    /*     const checkForDraw = (board: string[]): boolean | string => {
-          if (gameState === 'onGoing') {
-            const squaresLeft = board.filter(item => item === '').length
-            if (squaresLeft === 0) {
-              return 'tie'
-            } else {
-              return false
-            }
-          }
-          return false
-        } */
+
     const checkForWin = (board: string[]): string | null => {
 
       const squaresLeft = board.filter(item => item === '').length
-      const signs = ['X', 'O']
+      const signs = ['O', 'X']
 
       for (let i = 0; i < signs.length; i++) {
         const firstRow = board.slice(0, 3).filter(item => item === signs[i]).length
@@ -53,9 +43,9 @@ const App: React.FC = () => {
     }
 
     let scores: any = {
-      X: 10,
-      O: -10,
-      Tie: 0
+      'X': 10,
+      'O': -10,
+      'Tie': 0
     };
     const minimax = (board: string[], depth: number, isMaximizing: boolean): any => {
 

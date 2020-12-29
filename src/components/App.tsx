@@ -11,19 +11,20 @@ const App: React.FC = () => {
   const [aiOn, setAiOn] = useState(true)
 
   useEffect(() => {
-    const checkForDraw = (board: string[]): boolean | string => {
-      if (gameState === 'onGoing') {
-        const squaresLeft = board.filter(item => item === '').length
-        if (squaresLeft === 0) {
-          return 'tie'
-        } else {
+    /*     const checkForDraw = (board: string[]): boolean | string => {
+          if (gameState === 'onGoing') {
+            const squaresLeft = board.filter(item => item === '').length
+            if (squaresLeft === 0) {
+              return 'tie'
+            } else {
+              return false
+            }
+          }
           return false
-        }
-      }
-      return false
-    }
-    const checkForWin = (board: string[]): string => {
+        } */
+    const checkForWin = (board: string[]): string | null => {
 
+      const squaresLeft = board.filter(item => item === '').length
       const signs = ['X', 'O']
 
       for (let i = 0; i < signs.length; i++) {
@@ -39,20 +40,20 @@ const App: React.FC = () => {
         const secondDiagonal = [board[2], board[4], board[6]].filter(item => item === signs[i]).length
 
         if (firstRow === 3 || secondRow === 3 || thirdRow === 3) {
-          return `${signs[i]} wins`
+          return signs[i]
         } else if (firstColumn === 3 || secondColumn === 3 || thirdColumn === 3) {
-          return `${signs[i]} wins`
+          return signs[i]
         } else if (firstDiagonal === 3 || secondDiagonal === 3) {
-          return `${signs[i]} wins`
+          return signs[i]
+        } else if (squaresLeft === 0) {
+          return 'Tie'
         }
       }
-      return ''
+      return null
     }
     const minimax = (board: string[], depth: number, isMaximizing: boolean): any => {
       if (checkForWin(board) === 'X wins') {
         return 10
-      } else if (checkForDraw(board) === 'tie') {
-        return 0
       } else if (checkForWin(board) === 'O wins') {
         return -10
       }
@@ -107,11 +108,9 @@ const App: React.FC = () => {
       })
       setIsNext(!isNext)
     }
-    if (checkForWin(boardArr)) {
-      setGameState(`${isNext ? 'O' : 'X'} wins`)
-    }
-    else if (checkForDraw(boardArr) === 'tie') {
-      setGameState('Draw')
+    if (checkForWin(boardArr) !== null) {
+      if (checkForWin(boardArr) === 'Tie') setGameState('Tie')
+      else setGameState(`${checkForWin(boardArr)} wins`)
     } else if (aiOn && isNext && gameState === 'onGoing') {
       bestMove()
     }
@@ -143,7 +142,7 @@ const App: React.FC = () => {
     if (gameState === 'onGoing') {
       updateBoard((e.target as any).id)
     }
-    else if (gameState === 'Draw' || gameState === 'X wins' || gameState === 'O wins') {
+    else if (gameState === 'Tie' || gameState === 'X wins' || gameState === 'O wins') {
       reset()
     }
   }
